@@ -8,6 +8,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+// thik thik solution
 class Solution {
 private:
     int getLength(ListNode* head){
