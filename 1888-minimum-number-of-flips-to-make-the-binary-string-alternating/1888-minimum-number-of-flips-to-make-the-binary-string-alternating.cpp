@@ -1,25 +1,22 @@
 class Solution {
 public:
    int minFlips(string s) {
-        int n=s.size();
-        vector<vector<int> > cnt(2, vector<int>(2, 0));
-        
-        // cnt[0][0] = number of '0' in even positions
-        // cnt[0][1] = number of '0' in odd  positions
-        // cnt[1][0] = number of '1' in even positions
-        // cnt[1][1] = number of '1' in odd  positions
-        
-        for(int i=0; i<n; i++){
-            cnt[s[i]-'0'][i%2]++;
-        }
-        int ans=cnt[1][0]+cnt[0][1]; // cost to make all '0' in even positions and all '1' in odd positions
-        ans=min(ans, cnt[0][0]+cnt[1][1]); // cost to make all '1' in even positions and all '0' in odd positions
-        for(int i=0; i<n; i++){
-            cnt[s[i]-'0'][i%2]--;
-            cnt[s[i]-'0'][(n+i)%2]++; // sending this character at the end of the string
-            ans=min(ans, cnt[1][0]+cnt[0][1]);
-            ans=min(ans, cnt[0][0]+cnt[1][1]);
-        }
-        return ans;
+       const int n = s.length();
+       
+     vector<vector<int>> count(2, vector<int>(2));
+
+       for (int i = 0; i < n; ++i)
+      ++count[s[i] - '0'][i % 2];
+       
+       
+        int ans = min(count[1][0] + count[0][1], count[0][0] + count[1][1]);
+       
+        for (int i = 0; i < n; ++i) {
+      --count[s[i] - '0'][i % 2];
+      ++count[s[i] - '0'][(n + i) % 2];
+      ans = min({ans, count[1][0] + count[0][1], count[0][0] + count[1][1]});
+    }
+
+    return ans;
     }
 };
